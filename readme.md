@@ -1,6 +1,8 @@
 # EDD Changelog
 A WordPress plugin that adds a beautiful changelog display shortcode for Easy Digital Downloads products.
 
+<img width="875" alt="image" src="https://github.com/user-attachments/assets/a46918ff-b81a-41bb-99ac-802e7a2193bc" />
+
 ## Features
 - Adds `[edd_changelog]` shortcode to display product changelogs
 - Automatically adds visual badges for New, Improved, Fixed, and Dev changes
