@@ -43,23 +43,61 @@ function edd_changelog_shortcode( $atts ) {
 	// Make sure we're using h4s.
 	$changelog = str_replace( 'h3', 'h4', $changelog );
 
+	// Define default badge configurations
+	$badge_configs = apply_filters(
+		'edd_changelog_badge_configs',
+		array(
+			'added'     => array(
+				'prefix'     => 'Added',
+				'badge_text' => 'New',
+				'emoji'      => '✨',
+				'class'      => 'new',
+				'ltrim'      => false,
+			),
+			'improved'  => array(
+				'prefix'     => 'Improved',
+				'badge_text' => 'Improved',
+				'emoji'      => '⚡️',
+				'class'      => 'improved',
+				'ltrim'      => 'Improved - ',
+			),
+			'fix'       => array(
+				'prefix'     => 'Fix',
+				'badge_text' => 'Fixed',
+				'emoji'      => '🔧',
+				'class'      => 'fixed',
+				'ltrim'      => false,
+			),
+			'developer' => array(
+				'prefix'     => 'Developer',
+				'badge_text' => 'Dev',
+				'emoji'      => '🛠️',
+				'class'      => 'dev',
+				'ltrim'      => 'Developers: ',
+			),
+		)
+	);
+
 	// Add badges to list items
 	$changelog = preg_replace_callback(
 		'/<li>(.*?)<\/li>/s',
-		function ( $matches ) {
+		function ( $matches ) use ( $badge_configs ) {
 			$content = $matches[1];
 			$badge   = '';
 
-			if ( preg_match( '/^Added/i', $content ) ) {
-				$badge = '<span class="changelog-badge new">✨ New</span> ';
-			} elseif ( preg_match( '/^Improved/i', $content ) ) {
-				$content = str_replace( 'Improved - ', '', $content );
-				$badge   = '<span class="changelog-badge improved">⚡️ Improved</span> ';
-			} elseif ( preg_match( '/^Fix/i', $content ) ) {
-				$badge = '<span class="changelog-badge fixed">🔧 Fixed</span> ';
-			} elseif ( preg_match( '/^Developer/i', $content ) ) {
-				$content = str_replace( 'Developers: ', '', $content );
-				$badge   = '<span class="changelog-badge dev">🛠️ Dev</span> ';
+			foreach ( $badge_configs as $config ) {
+				if ( preg_match( '/^' . $config['prefix'] . '/i', $content ) ) {
+					if ( $config['ltrim'] ) {
+						$content = str_replace( $config['ltrim'], '', $content );
+					}
+					$badge = sprintf(
+						'<span class="changelog-badge %s">%s %s</span> ',
+						$config['class'],
+						$config['emoji'],
+						$config['badge_text']
+					);
+					break;
+				}
 			}
 
 			return "<li>{$badge}{$content}</li>";

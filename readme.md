@@ -22,3 +22,31 @@ The plugin will automatically style changelog entries based on these prefixes:
 - Improved: Shows a blue "Improved" badge  
 - Fix: Shows an orange "Fixed" badge
 - Developer: Shows a gray "Dev" badge 
+
+## Customization
+The plugin uses the `edd_changelog_badge_configs` filter to allow for custom badge configurations.
+
+Example:
+```php  
+add_filter( 'edd_changelog_badge_configs', function( $configs ) {
+    $configs['added']['emoji']     = '🚀';
+    $configs['improved']['emoji']  = '🔄';
+    $configs['fix']['emoji']       = '🐛';
+    $configs['developer']['emoji'] = '👨‍💻';
+
+    return $configs;
+} );
+```
+Each badge config accepts these parameters:
+- `prefix`: Text to match at the start of changelog items
+- `badge_text`: Text displayed on the badge
+- `emoji`: Emoji shown before badge text
+- `class`: CSS class for styling the badge
+- `ltrim`: Text to remove from the start of matched items (optional)
+
+## Changelog
+= 1.1.0 =
+* Added `edd_changelog_badge_configs` filter to allow for custom badge configurations
+
+= 1.0.0 - Feb 13, 2025 =
+* Initial release
