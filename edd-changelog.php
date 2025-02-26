@@ -52,28 +52,28 @@ function edd_changelog_shortcode( $atts ) {
 				'badge_text' => 'New',
 				'emoji'      => '✨',
 				'class'      => 'new',
-				'ltrim'      => false,
+				'ltrim'      => 'Added',
 			),
 			'improved'  => array(
 				'prefix'     => 'Improved',
 				'badge_text' => 'Improved',
 				'emoji'      => '⚡️',
 				'class'      => 'improved',
-				'ltrim'      => 'Improved - ',
+				'ltrim'      => 'Improved',
 			),
 			'fix'       => array(
 				'prefix'     => 'Fix',
 				'badge_text' => 'Fixed',
 				'emoji'      => '🔧',
 				'class'      => 'fixed',
-				'ltrim'      => false,
+				'ltrim'      => 'Fix',
 			),
 			'developer' => array(
 				'prefix'     => 'Developer',
 				'badge_text' => 'Dev',
 				'emoji'      => '🛠️',
 				'class'      => 'dev',
-				'ltrim'      => 'Developers: ',
+				'ltrim'      => 'Developer',
 			),
 		)
 	);
