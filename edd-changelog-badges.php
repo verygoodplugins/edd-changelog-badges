@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: EDD Changelog
+ * Plugin Name: EDD Changelog Badges
  * Plugin URI: https://wpfusion.com/
  * Description: Beautiful changelog display for Easy Digital Downloads products
- * Version: 1.0.0
+ * Version: 1.2.0
  * Author: Very Good Plugins
  * Author URI: https://verygoodplugins.com/
  * Text Domain: edd-changelog
@@ -49,6 +49,7 @@ function edd_changelog_shortcode( $atts ) {
 		array(
 			'added'     => array(
 				'prefix'     => 'Added',
+				'color'      => '#0e7a2a',
 				'badge_text' => 'New',
 				'emoji'      => '✨',
 				'class'      => 'new',
@@ -56,6 +57,7 @@ function edd_changelog_shortcode( $atts ) {
 			),
 			'improved'  => array(
 				'prefix'     => 'Improved',
+				'color'      => '#0a4c7f',
 				'badge_text' => 'Improved',
 				'emoji'      => '⚡️',
 				'class'      => 'improved',
@@ -63,6 +65,7 @@ function edd_changelog_shortcode( $atts ) {
 			),
 			'fix'       => array(
 				'prefix'     => 'Fix',
+				'color'      => '#a93800',
 				'badge_text' => 'Fixed',
 				'emoji'      => '🔧',
 				'class'      => 'fixed',
@@ -70,10 +73,19 @@ function edd_changelog_shortcode( $atts ) {
 			),
 			'developer' => array(
 				'prefix'     => 'Developer',
+				'color'      => '#1f262b',
 				'badge_text' => 'Dev',
 				'emoji'      => '🛠️',
 				'class'      => 'dev',
 				'ltrim'      => 'Developers: ',
+			),
+			'security'  => array(
+				'prefix'     => 'Security',
+				'color'      => '#a93800',
+				'badge_text' => 'Security',
+				'emoji'      => '🔒',
+				'class'      => 'security',
+				'ltrim'      => false,
 			),
 		)
 	);
@@ -91,10 +103,11 @@ function edd_changelog_shortcode( $atts ) {
 						$content = str_replace( $config['ltrim'], '', $content );
 					}
 					$badge = sprintf(
-						'<span class="changelog-badge %s">%s %s</span> ',
-						$config['class'],
-						$config['emoji'],
-						$config['badge_text']
+						'<span class="changelog-badge %s" style="background-color: %s;">%s %s</span> ',
+						isset( $config['class'] ) ? esc_attr( $config['class'] ) : sanitize_title( $config['prefix'] ),
+						isset( $config['color'] ) ? esc_attr( $config['color'] ) : '#22aa45',
+						esc_html( $config['emoji'] ),
+						esc_html( $config['badge_text'] )
 					);
 					break;
 				}
@@ -133,26 +146,7 @@ function edd_changelog_shortcode( $atts ) {
 			left: -10px;
 			top: 5px;
 			word-spacing: 2px;
-		}
-
-		.changelog-badge.new {
-			background-color: #22aa45;
-			color: white;
-		}
-
-		.changelog-badge.improved {
-			background-color: #2271b1;
-			color: white;
-		}
-
-		.changelog-badge.fixed {
-			background-color: #E55B10;
-			color: white;
-		}
-
-		.changelog-badge.dev {
-			background-color: #3c434a;
-			color: white;
+			color: #fff;
 		}
 	</style>';
 
