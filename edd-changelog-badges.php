@@ -106,7 +106,7 @@ function edd_changelog_shortcode( $atts ) {
 						'<span class="changelog-badge %s" style="background-color: %s;">%s %s</span> ',
 						isset( $config['class'] ) ? esc_attr( $config['class'] ) : sanitize_title( $config['prefix'] ),
 						isset( $config['color'] ) ? esc_attr( $config['color'] ) : '#22aa45',
-						esc_html( $config['emoji'] ),
+						isset( $config['emoji'] ) ? esc_html( $config['emoji'] ) : '',
 						esc_html( $config['badge_text'] )
 					);
 					break;
